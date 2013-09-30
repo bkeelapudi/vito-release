@@ -19,9 +19,12 @@ case $1 in
 
     echo $$ > $PIDFILE
 
-    exec /var/vcap/packages/etcd/etcd \
-            -d $RUN_DIR \
-            -c '<%= spec.networks.send(properties.networks.apps).ip %>:4001' \
+    exec /var/vcap/packages/etcd/etcd -f -d $RUN_DIR \
+            -c 0.0.0.0:4001 -s 0.0.0.0:7001 \
+            -n node<%= spec.index %> \
+<% if spec.index > 0 %>
+            -C '<%= p("etcd.machines").first %>:4001' \
+<% end %>
          1>>$LOG_DIR/etcd.stdout.log \
          2>>$LOG_DIR/etcd.stderr.log
 

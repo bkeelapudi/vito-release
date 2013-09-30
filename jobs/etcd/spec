@@ -15,5 +15,7 @@ properties:
   etcd.port:
     description: "etcd cluster listening port"
     default: 4001
+  etcd.machines:
+    description: "etcd cluster machine IPs"
   networks.apps:
     description: The name of the subnet that contains this job

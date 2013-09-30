@@ -1,0 +1,9 @@
+set -e
+
+cp -a etcd/* $BOSH_INSTALL_TARGET
+
+export GOROOT=$(readlink -nf /var/vcap/packages/golang)
+export PATH=$GOROOT/bin:/var/vcap/packages/git/gin:$PATH
+
+cd $BOSH_INSTALL_TARGET
+./build

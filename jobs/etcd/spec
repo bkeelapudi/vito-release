@@ -1,0 +1,19 @@
+---
+name: etcd
+templates:
+  etcd_ctl.erb: bin/etcd_ctl
+
+packages:
+- common
+- etcd
+- golang
+
+properties:
+  etcd.scheme:
+    description: "etcd cluster URI scheme"
+    default: http
+  etcd.port:
+    description: "etcd cluster listening port"
+    default: 4001
+  networks.apps:
+    description: The name of the subnet that contains this job

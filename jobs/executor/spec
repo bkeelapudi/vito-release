@@ -1,0 +1,29 @@
+---
+name: executor
+templates:
+  executor_ctl.erb: bin/executor_ctl
+
+packages:
+- common
+- executor
+- golang
+
+properties:
+  nats.address:
+    description: "IP address of NATS server"
+  nats.password:
+    description: "password for NATS login"
+  nats.port:
+    description: "TCP port of NATS server"
+  nats.user:
+    description: "user name for NATS login"
+  etcd.machines:
+    description: "etcd cluster members (IPs)"
+  etcd.scheme:
+    description: "etcd cluster URI scheme"
+    default: http
+  etcd.port:
+    description: "etcd cluster listening port"
+    default: 4001
+  networks.apps:
+    description: The name of the subnet that contains this job

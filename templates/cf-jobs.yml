@@ -1,0 +1,53 @@
+name: (( merge ))
+
+networks: (( merge ))
+
+meta:
+  networks:
+    z1:
+      apps: cf1
+      management: cf1
+
+    z2:
+      apps: cf2
+      management: cf2
+
+jobs:
+  - name: nats_z2
+    template: nats
+    instances: 1
+    resource_pool: medium_z2
+    networks:
+      - name: cf2
+        static_ips: (( merge ))
+    properties:
+      networks: (( meta.networks.z2 ))
+
+  - name: etcd_z1
+    template: etcd
+    instances: 1
+    resource_pool: medium_z1
+    networks:
+      - name: cf1
+        static_ips: (( merge ))
+    properties:
+      networks: (( meta.networks.z1 ))
+
+  - name: executor_z1
+    template: executor
+    instances: 10
+    resource_pool: medium_z1
+    networks:
+      - name: cf1
+    properties:
+      networks: (( meta.networks.z1 ))
+
+properties:
+  nats:
+    user: nats
+    password: nats
+    address: (( jobs.nats_z2.networks.cf2.static_ips.[0] ))
+    port: 4222
+
+  etcd:
+    machines: (( jobs.etcd_z1.networks.cf1.static_ips ))

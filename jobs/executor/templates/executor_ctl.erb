@@ -1,0 +1,42 @@
+#!/bin/bash
+
+RUN_DIR=/var/vcap/sys/run/executor
+LOG_DIR=/var/vcap/sys/log/executor
+PIDFILE=$RUN_DIR/executor.pid
+
+source /var/vcap/packages/common/utils.sh
+
+case $1 in
+
+  start)
+    pid_guard $PIDFILE "executor"
+
+    mkdir -p $RUN_DIR
+    mkdir -p $LOG_DIR
+
+    chown -R vcap:vcap $RUN_DIR
+    chown -R vcap:vcap $LOG_DIR
+
+    echo $$ > $PIDFILE
+
+    exec /var/vcap/packages/executor/bin/listener \
+            -natsAddr='<%= p("nats.address") %>:<%= p("nats.port") %>' \
+            -natsUser='<%= p("nats.user") %>' \
+            -natsPass='<%= p("nats.password") %>' \
+            -etcdCluster='<%= p("etcd.machines").collect { |ip| "#{p("etcd.scheme")}://#{ip}:#{p("etcd.port")}" }.join(",") %>' \
+         1>>$LOG_DIR/executor.stdout.log \
+         2>>$LOG_DIR/executor.stderr.log
+
+    ;;
+
+  stop)
+    kill_and_wait $PIDFILE
+
+    ;;
+
+  *)
+    echo "Usage: executor_ctl {start|stop}"
+
+    ;;
+
+esac

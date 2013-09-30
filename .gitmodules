@@ -1,0 +1,6 @@
+[submodule "src/etcd"]
+	path = src/etcd
+	url = git://github.com/coreos/etcd.git
+[submodule "src/executor/src/github.com/vito/executor-pool-spike"]
+	path = src/executor/src/github.com/vito/executor-pool-spike
+	url = git@github.com:vito/executor-pool-spike.git

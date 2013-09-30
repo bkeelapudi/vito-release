@@ -1,0 +1,6 @@
+set -e
+
+cd ${BUILD_DIR}/executor
+
+export GOPATH=$PWD
+go get -v ./src/github.com/vito/executor-pool-spike/...

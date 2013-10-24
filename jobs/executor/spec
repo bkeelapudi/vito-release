@@ -2,13 +2,19 @@
 name: executor
 templates:
   executor_ctl.erb: bin/executor_ctl
+  serf_ctl.erb: bin/serf_ctl
 
 packages:
 - common
 - executor
-- golang
+- serf
 
 properties:
+  serf.members:
+    description: "members of the serf cluster"
+  serf.role:
+    description: "the role of this node in the cluster"
+    default: ""
   nats.address:
     description: "IP address of NATS server"
   nats.password:

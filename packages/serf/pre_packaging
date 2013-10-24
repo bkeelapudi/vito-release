@@ -1,0 +1,6 @@
+set -e
+
+cd ${BUILD_DIR}/serf
+
+export GOPATH=$PWD
+go get -v ./src/github.com/hashicorp/serf/...

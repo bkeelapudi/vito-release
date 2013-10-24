@@ -1,5 +1,12 @@
+check process serf
+  with pidfile /var/vcap/sys/run/serf/serf.pid
+  start program "/var/vcap/jobs/executor/bin/serf_ctl start"
+  stop program "/var/vcap/jobs/executor/bin/serf_ctl stop" with timeout 45 seconds
+  group vcap
+
 check process executor
   with pidfile /var/vcap/sys/run/executor/executor.pid
   start program "/var/vcap/jobs/executor/bin/executor_ctl start"
   stop program "/var/vcap/jobs/executor/bin/executor_ctl stop" with timeout 45 seconds
   group vcap
+  depends on serf

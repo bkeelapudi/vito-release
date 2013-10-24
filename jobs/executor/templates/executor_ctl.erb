@@ -6,6 +6,8 @@ PIDFILE=$RUN_DIR/executor.pid
 
 source /var/vcap/packages/common/utils.sh
 
+export PATH=/var/vcap/packages/serf/bin:$PATH
+
 case $1 in
 
   start)
@@ -18,6 +20,8 @@ case $1 in
     chown -R vcap:vcap $LOG_DIR
 
     echo $$ > $PIDFILE
+
+    serf join <%= p("serf.members").join(" ") %>
 
     exec /var/vcap/packages/executor/bin/listener \
             -natsAddr='<%= p("nats.address") %>:<%= p("nats.port") %>' \

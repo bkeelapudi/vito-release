@@ -39,8 +39,12 @@ jobs:
     resource_pool: medium_z1
     networks:
       - name: cf1
+        static_ips: (( merge ))
     properties:
       networks: (( meta.networks.z1 ))
+      serf:
+        members: (( jobs.executor_z1.networks.cf1.static_ips ))
+        role: executor
 
 properties:
   nats:

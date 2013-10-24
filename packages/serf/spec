@@ -1,0 +1,6 @@
+---
+name: serf
+dependencies:
+- golang
+files:
+- serf/**/*

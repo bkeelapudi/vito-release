@@ -2,7 +2,9 @@ name: (( merge ))
 
 director_uuid: (( merge ))
 
-releases: (( merge ))
+releases:
+  - name: executor-pool
+    version: latest
 
 networks: (( merge ))
 

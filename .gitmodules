@@ -4,3 +4,6 @@
 [submodule "src/executor/src/github.com/vito/executor-pool-spike"]
 	path = src/executor/src/github.com/vito/executor-pool-spike
 	url = git@github.com:vito/executor-pool-spike.git
+[submodule "src/gnatsd"]
+	path = src/gnatsd
+	url = https://github.com/apcera/gnatsd.git

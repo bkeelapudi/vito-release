@@ -1,9 +1,10 @@
 set -e
 
-cp -a executor/* $BOSH_INSTALL_TARGET
-
 export GOROOT=$(readlink -nf /var/vcap/packages/golang)
 export GOPATH=$BOSH_INSTALL_TARGET
 export PATH=$GOROOT/bin:$PATH
 
-go install github.com/vito/executor-pool-spike/listener
+mkdir -p $GOPATH/src/github.com/apcera/
+mv gnatsd/ $GOPATH/src/github.com/apcera/gnatsd
+
+go install github.com/apcera/gnatsd

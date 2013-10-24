@@ -2,11 +2,10 @@
 name: nats
 templates:
   nats_ctl.erb: bin/nats_ctl
-  nats.yml.erb: config/nats.yml
+  nats.conf.erb: config/nats.conf
 packages:
   - common
-  - nats
-  - ruby
+  - gnatsd
 properties:
   nats_props:
     description:
